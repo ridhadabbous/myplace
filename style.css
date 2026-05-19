@@ -299,7 +299,7 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
     padding: 24px;
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 18px;
     transform: translateY(-120%);
@@ -1568,6 +1568,10 @@ h1, h2, h3, h4, h5, h6 {
     
     .nav-links {
         display: none;
+    }
+
+    .nav-mobile {
+        display: flex;
     }
     
     .stats-container {
