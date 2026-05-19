@@ -251,12 +251,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.dx = dx;
                 this.dy = dy;
                 this.size = size;
+                this.color = Math.random() > 0.5 ? 'rgba(255, 59, 48, 0.35)' : 'rgba(255, 255, 255, 0.15)';
             }
 
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 59, 48, 0.4)';
+                ctx.fillStyle = this.color;
                 ctx.fill();
             }
 
@@ -269,15 +270,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.x += this.dx;
                 this.y += this.dy;
 
-                // Mouse interaction (gentle repulsion/attraction)
+                // Mouse interaction (gentle repulsion)
                 if (mouse.x != null && mouse.y != null) {
                     let xs = mouse.x - this.x;
                     let ys = mouse.y - this.y;
                     let distance = Math.sqrt(xs * xs + ys * ys);
                     if (distance < mouse.radius) {
-                        // Gently attract towards mouse position
-                        this.x += xs * 0.01;
-                        this.y += ys * 0.01;
+                        // Gently repel away from mouse position
+                        this.x -= xs * 0.015;
+                        this.y -= ys * 0.015;
                     }
                 }
                 this.draw();
@@ -305,9 +306,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     let distance = Math.sqrt(dx * dx + dy * dy);
 
                     if (distance < 110) {
-                        let opacity = (1 - (distance / 110)) * 0.15;
-                        ctx.strokeStyle = `rgba(255, 59, 48, ${opacity})`;
-                        ctx.lineWidth = 1;
+                        let opacity = (1 - (distance / 110)) * 0.12;
+                        let colorStr = particles[a].color.includes('255, 59') || particles[b].color.includes('255, 59') 
+                            ? `rgba(255, 59, 48, ${opacity})` 
+                            : `rgba(255, 255, 255, ${opacity * 0.5})`;
+                        ctx.strokeStyle = colorStr;
+                        ctx.lineWidth = 0.8;
                         ctx.beginPath();
                         ctx.moveTo(particles[a].x, particles[a].y);
                         ctx.lineTo(particles[b].x, particles[b].y);
