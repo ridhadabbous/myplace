@@ -198,7 +198,29 @@ document.addEventListener('DOMContentLoaded', () => {
         form.reset();
     });
 
-    // --- 7. INTERACTIVE PARTICLE CANVAS BACKGROUND ---
+    // --- 7. FAQ ACCORDION INTERACTIVITY ---
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentElement;
+            const content = question.nextElementSibling;
+            const isActive = item.classList.contains('active');
+            
+            // Close all items
+            document.querySelectorAll('.faq-item').forEach(otherItem => {
+                otherItem.classList.remove('active');
+                otherItem.querySelector('.faq-content').style.maxHeight = null;
+            });
+            
+            // Toggle clicked item
+            if (!isActive) {
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // --- 8. INTERACTIVE PARTICLE CANVAS BACKGROUND ---
     const canvas = document.getElementById('hero-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
