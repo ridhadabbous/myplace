@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPlace | Software, Network & Technical Consulting</title>
+    <meta name="description"
+        content="MyPlace is a specialized team of developers, network engineers, and technical advisors offering premium consulting and freelance assistance." />
+    <meta name="keywords" content="MyPlace, consulting, software development, network engineering, technical advisor, freelance, IT audit, Tunisia" />
+    <meta property="og:title" content="MyPlace | Professional IT & Network Consulting" />
+    <meta property="og:description" content="Expert software developers, network engineers, and technical advisors ready to deliver premium freelance solutions." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://myplace.tn" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background Canvas for Interactive Matrix/Network Nodes -->
+    <canvas id="hero-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo" id="nav-logo">
+                <span class="logo-dot"></span>
+                <span class="logo-m">M</span><span class="logo-text">yPlace</span>
+            </a>
+
+            <div class="nav-links" id="nav-links">
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#team" class="nav-link">Our Team</a>
+                <a href="#process" class="nav-link">How We Work</a>
+                <a href="#contact" class="nav-link nav-cta">Get in Touch</a>
+            </div>
+
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <!-- Mobile Dropdown Menu -->
+        <div class="nav-mobile" id="nav-mobile">
+            <a href="#services" class="mobile-link">Services</a>
+            <a href="#team" class="mobile-link">Our Team</a>
+            <a href="#process" class="mobile-link">How We Work</a>
+            <a href="#contact" class="mobile-link mobile-cta">Get in Touch</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span class="badge-text">Consulting &amp; Freelance Assistance</span>
+                </div>
+                <h1 class="hero-title">
+                    We build. We connect.<br>
+                    <span class="gradient-text">We advise.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    A multi-disciplinary collective of expert developers, network engineers, and technical advisors dedicated to building secure, scalable, and modern digital ecosystems.
+                </p>
+                <div class="hero-ctas">
+                    <a href="#contact" class="btn-primary">
+                        <span>Launch Project</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                    <a href="#services" class="btn-ghost">
+                        <span>Explore Capabilities</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="tech-stack-sphere">
+                    <div class="sphere-node node-dev" data-info="Software Dev">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <div class="sphere-node node-net" data-info="Networks">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M12 8v8M5 16v-4h14v4"></path></svg>
+                    </div>
+                    <div class="sphere-node node-adv" data-info="Advisory">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    </div>
+                    <div class="sphere-core">
+                        <span class="core-logo">MP</span>
+                    </div>
+                    <div class="orbit orbit-1"></div>
+                    <div class="orbit orbit-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-num" data-val="100">0+</div>
+                <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-val="15">0+</div>
+                <div class="stat-label">Years Combined Experience</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-val="99">0%</div>
+                <div class="stat-label">Network &amp; App Uptime</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-val="24">0/7</div>
+                <div class="stat-label">Critical Advisory Support</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Capabilities</span>
+                <h2 class="section-title">Our Pillars of Expertise</h2>
+                <p class="section-desc">We deliver custom-built, secure, and future-proof digital solutions across three fundamental disciplines.</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Service 1: Development -->
+                <div class="service-card" id="card-dev">
+                    <div class="service-icon-container">
+                        <svg class="service-svg-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                            <line x1="14" y1="4" x2="10" y2="20"></line>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Software Development</h3>
+                    <p class="service-body">We engineer tailored, high-performance web, mobile, and cloud applications designed to scale seamlessly under heavy workloads.</p>
+                    <ul class="service-list">
+                        <li><span>Custom Web &amp; Mobile Apps</span></li>
+                        <li><span>API Design &amp; System Integration</span></li>
+                        <li><span>Cloud-Native Architectures (AWS, GCP)</span></li>
+                        <li><span>Modern Stack Migration &amp; Optimization</span></li>
+                    </ul>
+                    <a href="#contact" class="service-link" data-pillar="development">Inquire Development →</a>
+                </div>
+
+                <!-- Service 2: Network Engineering -->
+                <div class="service-card" id="card-network">
+                    <div class="service-icon-container">
+                        <svg class="service-svg-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="16" y="16" width="6" height="6" rx="1"></rect>
+                            <rect x="2" y="16" width="6" height="6" rx="1"></rect>
+                            <rect x="9" y="2" width="6" height="6" rx="1"></rect>
+                            <path d="M12 8v8"></path>
+                            <path d="M5 16v-4h14v4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Network Engineering</h3>
+                    <p class="service-body">We design, configure, and secure mission-critical network infrastructures to guarantee high availability, speed, and safety.</p>
+                    <ul class="service-list">
+                        <li><span>Enterprise Routing &amp; Switching</span></li>
+                        <li><span>VPN, SD-WAN &amp; Firewall Deployment</span></li>
+                        <li><span>Security Auditing &amp; Vulnerability Testing</span></li>
+                        <li><span>Network Infrastructure Automation</span></li>
+                    </ul>
+                    <a href="#contact" class="service-link" data-pillar="network">Inquire Network Engineering →</a>
+                </div>
+
+                <!-- Service 3: Technical Advisory -->
+                <div class="service-card" id="card-advisory">
+                    <div class="service-icon-container">
+                        <svg class="service-svg-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Technical Advisory</h3>
+                    <p class="service-body">We bridge the gap between business requirements and technical execution, providing strategic leadership and expert audits.</p>
+                    <ul class="service-list">
+                        <li><span>IT Infrastructure &amp; Security Audits</span></li>
+                        <li><span>Technology Stack Strategy &amp; Planning</span></li>
+                        <li><span>Freelance &amp; Team Leadership Assistance</span></li>
+                        <li><span>RFP &amp; Technical Vendor Selection</span></li>
+                    </ul>
+                    <a href="#contact" class="service-link" data-pillar="advisory">Inquire Advisory →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Our Experts</span>
+                <h2 class="section-title">The Core Collective</h2>
+                <p class="section-desc">We are certified specialists combining deep academic knowledge with extensive hands-on enterprise experience.</p>
+            </div>
+
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-card">
+                    <div class="team-avatar-wrapper">
+                        <div class="team-avatar-placeholder">
+                            <span>DEV</span>
+                        </div>
+                        <div class="team-badge">Core</div>
+                    </div>
+                    <h3 class="team-name">Development Division</h3>
+                    <p class="team-role">Software Engineering</p>
+                    <p class="team-bio">Engineering modern platforms using React, Node, Next.js, Go, Python, and orchestrating scalable cloud deployments (AWS, GCP, Kubernetes).</p>
+                    <div class="team-skills">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>Docker</span>
+                        <span>AWS</span>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-card">
+                    <div class="team-avatar-wrapper">
+                        <div class="team-avatar-placeholder">
+                            <span>NET</span>
+                        </div>
+                        <div class="team-badge">Core</div>
+                    </div>
+                    <h3 class="team-name">Infrastructure Division</h3>
+                    <p class="team-role">Network &amp; Cyber Security</p>
+                    <p class="team-bio">Designing multi-vendor networks (Cisco, Juniper, Fortinet), configuring robust routing protocols, and auditing network systems for enterprise security.</p>
+                    <div class="team-skills">
+                        <span>Routing</span>
+                        <span>Firewalls</span>
+                        <span>VPNs</span>
+                        <span>SDN</span>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-card">
+                    <div class="team-avatar-wrapper">
+                        <div class="team-avatar-placeholder">
+                            <span>ADV</span>
+                        </div>
+                        <div class="team-badge">Core</div>
+                    </div>
+                    <h3 class="team-name">Advisory Division</h3>
+                    <p class="team-role">Technical Strategy &amp; Auditing</p>
+                    <p class="team-bio">Bridging business needs and high-grade execution, conducting deep IT security audits, directing agile sprints, and managing technical risk.</p>
+                    <div class="team-skills">
+                        <span>Agile</span>
+                        <span>IT Audits</span>
+                        <span>Risk Mgmt</span>
+                        <span>Architecture</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Work Section -->
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Workflow</span>
+                <h2 class="section-title">Our Engagement Model</h2>
+                <p class="section-desc">We follow a structured, rapid-turnaround methodology to ensure clean delivery, complete compliance, and minimal friction.</p>
+            </div>
+
+            <div class="process-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h4 class="step-title">Initial Consultation</h4>
+                        <p class="step-desc">We sit down with your team to review your technical bottlenecks, requirements, and project vision at no cost.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h4 class="step-title">Architecture &amp; Proposal</h4>
+                        <p class="step-desc">We create a comprehensive blueprint of the proposed software system or network topology, detailed with timelines and tech choices.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h4 class="step-title">Sprint-Based Execution</h4>
+                        <p class="step-desc">We implement the solution using agile methodologies, giving you continuous access to staging environments and config drafts.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h4 class="step-title">Testing &amp; Handover</h4>
+                        <p class="step-desc">Rigorous unit/security testing and network dry-runs are conducted. We provide complete documentation and transfer ownership.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-card">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h2 class="contact-title">Let's build something secure together</h2>
+                        <p class="contact-sub">Have a project in mind or need emergency engineering assistance? Drop us a line and our core team will respond within 4 hours.</p>
+                        
+                        <div class="info-list">
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                </div>
+                                <div class="info-text">
+                                    <span class="info-label">Direct Email</span>
+                                    <a href="mailto:hello@myplace.tn" class="info-link">hello@myplace.tn</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-wrapper">
+                        <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                            <!-- Web3Forms Config -->
+                            <input type="hidden" name="access_key" value="8e0dabc2-57cb-4f44-a02f-2ee150e35c4f">
+                            <input type="hidden" name="subject" value="New Inquiry from MyPlace.tn">
+                            <input type="hidden" name="from_name" value="MyPlace.tn Website">
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" id="name" name="name" class="form-input" placeholder="e.g. John Doe" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="e.g. john@company.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pillar-select" class="form-label">Service Required</label>
+                                <select id="pillar-select" name="service" class="form-input form-select">
+                                    <option value="general">General Inquiry</option>
+                                    <option value="development">Software Development</option>
+                                    <option value="network">Network Engineering</option>
+                                    <option value="advisory">Technical Advisory</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message Details</label>
+                                <textarea id="message" name="message" rows="4" class="form-input form-textarea" placeholder="Tell us about your requirements..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="form-submit-btn" id="submit-btn">
+                                <span>Send Inquiry</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                        </form>
+                        
+                        <!-- Success Message Toast/Box -->
+                        <div class="form-success-box" id="success-box">
+                            <div class="success-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <h3>Inquiry Sent Successfully!</h3>
+                            <p>Thank you for reaching out. A MyPlace specialist will review your request and get back to you shortly.</p>
+                            <button class="btn-success-reset" id="reset-success-btn">Send another message</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="nav-logo">
+                        <span class="logo-dot"></span>
+                        <span class="logo-m">M</span><span class="logo-text">yPlace</span>
+                    </a>
+                    <p class="footer-tagline">Providing high-grade software engineering, secure network architectures, and expert technical consulting.</p>
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-nav-col">
+                        <h4>Navigation</h4>
+                        <a href="#services">Services</a>
+                        <a href="#team">Our Team</a>
+                        <a href="#process">How We Work</a>
+                    </div>
+                    <div class="footer-nav-col">
+                        <h4>Connect</h4>
+                        <a href="mailto:hello@myplace.tn">hello@myplace.tn</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 MyPlace.tn. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <span>Tunisia</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
