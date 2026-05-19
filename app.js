@@ -220,7 +220,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 8. INTERACTIVE PARTICLE CANVAS BACKGROUND ---
+    // --- 8. DYNAMIC SPOTLIGHT CARD GLOW ---
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+
+    // --- 9. INTERACTIVE PARTICLE CANVAS BACKGROUND ---
     const canvas = document.getElementById('hero-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
@@ -331,4 +343,22 @@ document.addEventListener('DOMContentLoaded', () => {
         resizeCanvas();
         animate();
     }
+
+    // --- 10. SCROLL REVEAL ANIMATIONS ---
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    });
+    
+    revealElements.forEach(el => {
+        revealObserver.observe(el);
+    });
 });
