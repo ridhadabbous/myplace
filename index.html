@@ -36,8 +36,10 @@
 
             <div class="nav-links" id="nav-links">
                 <a href="#services" class="nav-link">Services</a>
+                <a href="#portfolio" class="nav-link">Case Studies</a>
                 <a href="#team" class="nav-link">Our Team</a>
                 <a href="#process" class="nav-link">How We Work</a>
+                <a href="#faq" class="nav-link">FAQ</a>
                 <a href="#contact" class="nav-link nav-cta">Get in Touch</a>
             </div>
 
@@ -50,8 +52,10 @@
         <!-- Mobile Dropdown Menu -->
         <div class="nav-mobile" id="nav-mobile">
             <a href="#services" class="mobile-link">Services</a>
+            <a href="#portfolio" class="mobile-link">Case Studies</a>
             <a href="#team" class="mobile-link">Our Team</a>
             <a href="#process" class="mobile-link">How We Work</a>
+            <a href="#faq" class="mobile-link">FAQ</a>
             <a href="#contact" class="mobile-link mobile-cta">Get in Touch</a>
         </div>
     </nav>
@@ -201,6 +205,52 @@
         </div>
     </section>
 
+    <!-- Case Studies / Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Case Studies</span>
+                <h2 class="section-title">Featured Engagements</h2>
+                <p class="section-desc">A selection of recent projects designed, built, and secured by the MyPlace team.</p>
+            </div>
+
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <div class="portfolio-tag">Software Engineering</div>
+                    <h3 class="portfolio-title">Rebelo Delivery Super-App</h3>
+                    <p class="portfolio-desc">Engineered a multi-service super-app supporting taxi booking, food ordering, and delivery logistics. Optimized with real-time dispatch mechanisms and commission-free cash flow routing.</p>
+                    <div class="portfolio-meta">
+                        <span>Next.js</span>
+                        <span>Node.js</span>
+                        <span>PostgreSQL</span>
+                    </div>
+                </div>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-tag">Network Architecture</div>
+                    <h3 class="portfolio-title">FinTech Infrastructure Hardening</h3>
+                    <p class="portfolio-desc">Architected and deployed a PCI-compliant, highly secure AWS network infrastructure for a high-volume payment processor. Integrated zero-trust firewalls and automated config compliance.</p>
+                    <div class="portfolio-meta">
+                        <span>AWS Cloud</span>
+                        <span>Terraform</span>
+                        <span>Fortinet</span>
+                    </div>
+                </div>
+
+                <div class="portfolio-card">
+                    <div class="portfolio-tag">Technical Advisory</div>
+                    <h3 class="portfolio-title">Enterprise SD-WAN Migration</h3>
+                    <p class="portfolio-desc">Directed the comprehensive network overhaul and technology stack modernization for a global logistics provider, migrating 40+ sites to a secure SD-WAN topology with zero downtime.</p>
+                    <div class="portfolio-meta">
+                        <span>SD-WAN</span>
+                        <span>Cisco</span>
+                        <span>IT Audit</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Team Section -->
     <section class="team" id="team">
         <div class="container">
@@ -312,6 +362,49 @@
                     <div class="step-content">
                         <h4 class="step-title">Testing &amp; Handover</h4>
                         <p class="step-desc">Rigorous unit/security testing and network dry-runs are conducted. We provide complete documentation and transfer ownership.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">FAQ</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-desc">Answers to common inquiries regarding our technical capacity and consulting services.</p>
+            </div>
+
+            <div class="faq-accordion">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What is your typical project engagement model?</span>
+                        <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-content">
+                        <p>We work on a per-project or retained consulting basis. After an initial free scoping consultation, we provide a detailed technical proposal, cost breakdown, and timeline. All projects are run in agile sprints with absolute transparency.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How do you handle source code and network configuration security?</span>
+                        <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-content">
+                        <p>All source code is committed to secure, client-owned repositories. Infrastructure designs and network config files are kept encrypted, and we enforce MFA and zero-trust principles across all environments we manage during development.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you provide emergency network troubleshooting or support?</span>
+                        <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-content">
+                        <p>Yes, we offer emergency technical assistance and advisory support for critical server outages, network loops, firewall misconfigurations, and cyber security breaches. Contact us directly at hello@myplace.tn with the subject [URGENT].</p>
                     </div>
                 </div>
             </div>
