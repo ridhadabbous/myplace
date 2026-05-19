@@ -495,41 +495,56 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(0);
 }
 
-/* Absolute node position mappings */
-.node-dev {
-    top: -15px;
-    left: 113px;
-    animation: orbit1 15s linear infinite;
+/* Center all nodes in the sphere container & override size/position */
+.sphere-node {
+    position: absolute;
+    top: calc(50% - 24px);
+    left: calc(50% - 24px);
+    width: 48px;
+    height: 48px;
+    background: rgba(20, 20, 23, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+    z-index: 12;
+    cursor: pointer;
 }
 
-.node-net {
-    bottom: 40px;
-    left: -15px;
-    animation: orbit2 18s linear infinite;
-}
+/* Inner orbit node mappings (clockwise, radius 95px) */
+.node-i1 { animation: orbit-inner-1 15s linear infinite; }
+.node-i2 { animation: orbit-inner-2 15s linear infinite; }
+.node-i3 { animation: orbit-inner-3 15s linear infinite; }
+.node-i4 { animation: orbit-inner-4 15s linear infinite; }
 
-.node-adv {
-    bottom: 40px;
-    right: -15px;
-    animation: orbit3 22s linear infinite;
-}
+/* Outer orbit node mappings (counter-clockwise, radius 140px) */
+.node-o1 { animation: orbit-outer-1 20s linear infinite; }
+.node-o2 { animation: orbit-outer-2 20s linear infinite; }
+.node-o3 { animation: orbit-outer-3 20s linear infinite; }
+.node-o4 { animation: orbit-outer-4 20s linear infinite; }
 
 /* Orbits backgrounds */
 .orbit {
     position: absolute;
-    border: 1px dashed rgba(255, 255, 255, 0.05);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px dashed rgba(255, 255, 255, 0.04);
     border-radius: 50%;
     pointer-events: none;
 }
 
 .orbit-1 {
-    width: 200px;
-    height: 200px;
+    width: 190px;
+    height: 190px;
 }
 
 .orbit-2 {
-    width: 320px;
-    height: 320px;
+    width: 280px;
+    height: 280px;
 }
 
 /* ==========================================================================
@@ -1313,32 +1328,40 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-/* Simulated 3D orbits */
-@keyframes orbit1 {
-    from {
-        transform: rotate(0deg) translate(140px) rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg) translate(140px) rotate(-360deg);
-    }
+/* Orbit 1 keyframes (Inner, Clockwise, Radius 95px) */
+@keyframes orbit-inner-1 {
+    from { transform: rotate(0deg) translate(95px) rotate(0deg); }
+    to { transform: rotate(360deg) translate(95px) rotate(-360deg); }
+}
+@keyframes orbit-inner-2 {
+    from { transform: rotate(90deg) translate(95px) rotate(-90deg); }
+    to { transform: rotate(450deg) translate(95px) rotate(-450deg); }
+}
+@keyframes orbit-inner-3 {
+    from { transform: rotate(180deg) translate(95px) rotate(-180deg); }
+    to { transform: rotate(540deg) translate(95px) rotate(-540deg); }
+}
+@keyframes orbit-inner-4 {
+    from { transform: rotate(270deg) translate(95px) rotate(-270deg); }
+    to { transform: rotate(630deg) translate(95px) rotate(-630deg); }
 }
 
-@keyframes orbit2 {
-    from {
-        transform: rotate(120deg) translate(140px) rotate(-120deg);
-    }
-    to {
-        transform: rotate(480deg) translate(140px) rotate(-480deg);
-    }
+/* Orbit 2 keyframes (Outer, Counter-Clockwise, Radius 140px) */
+@keyframes orbit-outer-1 {
+    from { transform: rotate(45deg) translate(140px) rotate(-45deg); }
+    to { transform: rotate(-315deg) translate(140px) rotate(315deg); }
 }
-
-@keyframes orbit3 {
-    from {
-        transform: rotate(240deg) translate(140px) rotate(-240deg);
-    }
-    to {
-        transform: rotate(600deg) translate(140px) rotate(-600deg);
-    }
+@keyframes orbit-outer-2 {
+    from { transform: rotate(135deg) translate(140px) rotate(-135deg); }
+    to { transform: rotate(-225deg) translate(140px) rotate(225deg); }
+}
+@keyframes orbit-outer-3 {
+    from { transform: rotate(225deg) translate(140px) rotate(-225deg); }
+    to { transform: rotate(-135deg) translate(140px) rotate(135deg); }
+}
+@keyframes orbit-outer-4 {
+    from { transform: rotate(315deg) translate(140px) rotate(-315deg); }
+    to { transform: rotate(-45deg) translate(140px) rotate(45deg); }
 }
 /* ==========================================================================
    PORTFOLIO / CASE STUDIES SECTION
