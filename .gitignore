@@ -7,6 +7,9 @@
 *.sln
 *.sw?
 
+# Node / Worker
+node_modules/
+
 # OS metadata
 Thumbs.db
 ehthumbs.db
