@@ -4,19 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyPlace Online Store — Electronics &amp; More in Tunisia | Cash on Delivery</title>
+    <title>MyPlace Quick Order | Fast Electronics Delivery in Tunisia</title>
     <meta name="description"
-        content="Shop electronics, accessories and tech products at MyPlace. Order online in minutes and pay cash on delivery anywhere in Tunisia." />
+        content="Order electronics and accessories quickly with cash on delivery in Tunisia. Send customers this direct order link for faster checkout." />
     <meta name="keywords"
-        content="online store Tunisia, buy electronics Tunisia, cash on delivery Tunisia, MyPlace store, tech products, order online Tunisia, livraison Tunisie, boutique en ligne Tunisie" />
+        content="quick order Tunisia, order electronics Tunisia, cash on delivery Tunisia, MyPlace quick order, direct order link" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://myplace.tn/" />
+    <link rel="canonical" href="https://myplace.tn/order.html" />
 
-    <meta property="og:title" content="MyPlace Online Store | Electronics &amp; More in Tunisia" />
+    <meta property="og:title" content="MyPlace Quick Order | Electronics in Tunisia" />
     <meta property="og:description"
-        content="Shop electronics, accessories and tech products. Order online and pay cash on delivery anywhere in Tunisia." />
+        content="Use this direct order link to place electronics orders fast with cash on delivery across Tunisia." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://myplace.tn/" />
+    <meta property="og:url" content="https://myplace.tn/order.html" />
     <meta property="og:image" content="https://myplace.tn/og-image.png" />
     <meta property="og:site_name" content="MyPlace" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -66,7 +66,7 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-inner">
-            <a href="#" class="nav-logo" id="nav-logo">
+            <a href="index.html" class="nav-logo" id="nav-logo">
                 <svg class="logo-mark" width="30" height="30" viewBox="0 0 32 32" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M16 2L28 9V23L16 30L4 23V9L16 2Z" stroke="url(#logo-grad-header)" stroke-width="2.5"
@@ -86,8 +86,8 @@
             </a>
 
             <div class="nav-links" id="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
                 <a href="#shop" class="nav-link">Shop</a>
-                <a href="order.html" class="nav-link">Quick Order</a>
                 <a href="#how" class="nav-link">How to Order</a>
                 <a href="#contact" class="nav-link nav-cta">Contact Us</a>
                 <button class="cart-btn" id="cart-btn" aria-label="Open cart">
@@ -109,7 +109,7 @@
         </div>
         <!-- Mobile Dropdown Menu -->
         <div class="nav-mobile" id="nav-mobile">
-            <a href="order.html" class="mobile-link">Quick Order</a>
+            <a href="index.html" class="mobile-link">Home</a>
             <a href="#shop" class="mobile-link">Shop</a>
             <a href="#how" class="mobile-link">How to Order</a>
             <a href="#contact" class="mobile-link mobile-cta">Contact Us</a>
@@ -133,23 +133,109 @@
                     Fast shipping across Tunisia with secure cash-on-delivery checkout.
                 </p>
                 <div class="hero-ctas">
-                    <a href="order.html" class="btn-primary">
-                        <span>Quick Order</span>
+                    <a href="#quick-order" class="btn-primary">
+                        <span>Start Quick Order</span>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                             <polyline points="12 5 19 12 12 19"></polyline>
                         </svg>
                     </a>
-                    <a href="#shop" class="btn-ghost">
-                        <span>Browse Products</span>
+                    <a href="index.html" class="btn-ghost">
+                        <span>Return Home</span>
                     </a>
                 </div>
-                <p class="hero-note">Share the quick order page with customers for faster checkout: <a href="https://myplace.tn/order.html">https://myplace.tn/order.html</a></p>
+                <p class="hero-note">Share this page with your customers for fast ordering: <a href="https://myplace.tn/order.html">https://myplace.tn/order.html</a></p>
             </div>
         </div>
     </section>
-
+ 
+    <!-- Quick Order Section -->
+    <section class="quick-order" id="quick-order">
+        <div class="container">
+            <div class="section-header reveal-on-scroll">
+                <span class="section-tag">Quick Order</span>
+                <h2 class="section-title">Place an order fast with one link</h2>
+                <p class="section-desc">Select a product, enter your delivery details, and submit your request immediately.</p>
+            </div>
+            <div class="quick-order-card reveal-on-scroll">
+                <form id="quick-order-form" class="checkout-form">
+                    <div class="form-group">
+                        <label for="qo-product" class="form-label">Product</label>
+                        <select id="qo-product" class="form-input form-select" required>
+                            <option value="">Loading products...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="qo-qty" class="form-label">Quantity</label>
+                        <input type="number" id="qo-qty" class="form-input" value="1" min="1" max="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="qo-name" class="form-label">Full Name</label>
+                        <input type="text" id="qo-name" name="customer_name" class="form-input" placeholder="e.g. Ahmed Ben Ali" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="qo-phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="qo-phone" name="phone" class="form-input" placeholder="e.g. +216 20 123 456" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="qo-city" class="form-label">City</label>
+                        <select id="qo-city" name="city" class="form-input form-select" required>
+                            <option value="">Select your city</option>
+                            <option value="Tunis">Tunis</option>
+                            <option value="Ariana">Ariana</option>
+                            <option value="Ben Arous">Ben Arous</option>
+                            <option value="Manouba">Manouba</option>
+                            <option value="Nabeul">Nabeul</option>
+                            <option value="Bizerte">Bizerte</option>
+                            <option value="Zaghouan">Zaghouan</option>
+                            <option value="Beja">Beja</option>
+                            <option value="Jendouba">Jendouba</option>
+                            <option value="Kef">Kef</option>
+                            <option value="Siliana">Siliana</option>
+                            <option value="Sousse">Sousse</option>
+                            <option value="Monastir">Monastir</option>
+                            <option value="Mahdia">Mahdia</option>
+                            <option value="Kairouan">Kairouan</option>
+                            <option value="Sfax">Sfax</option>
+                            <option value="Gabes">Gabes</option>
+                            <option value="Medenine">Medenine</option>
+                            <option value="Tataouine">Tataouine</option>
+                            <option value="Kebili">Kebili</option>
+                            <option value="Tozeur">Tozeur</option>
+                            <option value="Gafsa">Gafsa</option>
+                            <option value="Kasserine">Kasserine</option>
+                            <option value="Sidi Bouzid">Sidi Bouzid</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="qo-address" class="form-label">Delivery Address</label>
+                        <textarea id="qo-address" name="address" rows="2" class="form-input form-textarea" placeholder="Street, building, neighborhood or delivery notes..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="qo-notes" class="form-label">Order Notes (optional)</label>
+                        <textarea id="qo-notes" name="notes" rows="2" class="form-input form-textarea" placeholder="Anything we should know?"></textarea>
+                    </div>
+                    <p class="checkout-total-line">Selected price: <strong id="qo-price">0 DT</strong></p>
+                    <button type="submit" class="form-submit-btn" id="qo-submit">
+                        <span>Place Order</span>
+                    </button>
+                    <p class="checkout-error" id="qo-error"></p>
+                </form>
+                <div class="checkout-success" id="qo-success" hidden>
+                    <div class="success-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Order Received!</h3>
+                    <p>Thank you! Your order request has been sent. We will call you shortly to confirm delivery.</p>
+                    <a href="index.html" class="btn-success-reset">Back to home</a>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
     <!-- Shop Section -->
     <section class="shop" id="shop">
         <div class="container">

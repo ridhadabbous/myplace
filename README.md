@@ -1,1 +1,0 @@
-# MyPlace — E-commerce Store

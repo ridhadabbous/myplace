@@ -30,6 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const $ = (id) => document.getElementById(id);
+    const orderParams = new URLSearchParams(window.location.search);
+    const quickOrderConfig = {
+        enabled: window.location.pathname.endsWith('/order.html') || window.location.pathname.endsWith('/order'),
+        initialProductId: Number(orderParams.get('product')),
+        form: $('quick-order-form'),
+        productSelect: $('qo-product'),
+        qtyInput: $('qo-qty'),
+        priceLabel: $('qo-price'),
+        error: $('qo-error'),
+        success: $('qo-success'),
+    };
+
     const formatPrice = (value) => {
         const v = Number(value);
         const fixed = v.toFixed(3);
@@ -107,6 +119,96 @@ document.addEventListener('DOMContentLoaded', () => {
         $('cart-total').textContent = formatPrice(cartTotal());
         $('checkout-total').textContent = formatPrice(cartTotal());
         renderCartItems();
+    }
+
+    function renderQuickOrderProducts() {
+        if (!quickOrderConfig.enabled || !quickOrderConfig.productSelect) return;
+        const select = quickOrderConfig.productSelect;
+        const products = state.products.filter(p => p.available && p.stock > 0);
+        select.innerHTML = '<option value="">Choose a product</option>';
+
+        products.forEach(product => {
+            const option = document.createElement('option');
+            option.value = product.id;
+            option.textContent = `${product.name} — ${formatPrice(product.price)}`;
+            select.appendChild(option);
+        });
+
+        if (Number.isInteger(quickOrderConfig.initialProductId) && quickOrderConfig.initialProductId > 0) {
+            select.value = String(quickOrderConfig.initialProductId);
+        }
+        updateQuickOrderPrice();
+    }
+
+    function updateQuickOrderPrice() {
+        if (!quickOrderConfig.enabled || !quickOrderConfig.priceLabel || !quickOrderConfig.productSelect) return;
+        const id = Number(quickOrderConfig.productSelect.value);
+        const qty = Number(quickOrderConfig.qtyInput?.value || 1);
+        const product = state.products.find(p => p.id === id);
+        if (!product || qty <= 0) {
+            quickOrderConfig.priceLabel.textContent = '0 DT';
+            return;
+        }
+        quickOrderConfig.priceLabel.textContent = formatPrice(Number(product.price) * qty);
+    }
+
+    async function submitQuickOrder(e) {
+        if (!quickOrderConfig.enabled || !quickOrderConfig.form) return;
+        e.preventDefault();
+        quickOrderConfig.error.textContent = '';
+
+        const productId = Number(quickOrderConfig.productSelect.value);
+        const qty = Number(quickOrderConfig.qtyInput.value);
+        const customerName = $('qo-name').value.trim();
+        const phone = $('qo-phone').value.trim();
+        const city = $('qo-city').value.trim();
+        const address = $('qo-address').value.trim();
+        const notes = $('qo-notes').value.trim();
+
+        if (!productId || qty <= 0) {
+            quickOrderConfig.error.textContent = 'Please select a product and quantity.';
+            return;
+        }
+
+        const payload = {
+            customer_name: customerName,
+            phone,
+            city,
+            address,
+            notes,
+            items: [{ id: productId, qty }]
+        };
+
+        const submitButton = $('qo-submit');
+        const originalText = submitButton.querySelector('span').textContent;
+        submitButton.disabled = true;
+        submitButton.style.opacity = '0.7';
+        submitButton.querySelector('span').textContent = 'Placing order...';
+
+        try {
+            const res = await fetch(API_BASE + '/api/orders', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (res.ok && data.ok) {
+                quickOrderConfig.form.hidden = true;
+                quickOrderConfig.success.hidden = false;
+            } else {
+                quickOrderConfig.error.textContent = data.error || 'Could not place your order. Please try again.';
+            }
+        } catch (err) {
+            console.error(err);
+            quickOrderConfig.error.textContent = 'Network error. Please check your connection and try again.';
+        } finally {
+            submitButton.disabled = false;
+            submitButton.style.opacity = '1';
+            submitButton.querySelector('span').textContent = originalText;
+        }
     }
 
     function addToCart(id) {
@@ -287,6 +389,12 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.querySelector('span').textContent = originalText;
         }
     });
+
+    if (quickOrderConfig.enabled) {
+        quickOrderConfig.productSelect?.addEventListener('change', updateQuickOrderPrice);
+        quickOrderConfig.qtyInput?.addEventListener('input', updateQuickOrderPrice);
+        quickOrderConfig.form?.addEventListener('submit', submitQuickOrder);
+    }
 
     // --- 8. LIGHTBOX (product media viewer) ---
     const lightbox = $('lightbox');
@@ -588,6 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderChips();
             renderGrid();
             updateCartUI();
+            renderQuickOrderProducts();
             injectProductJsonLd();
         } catch (err) {
             console.error(err);
