@@ -6,11 +6,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. CONFIG & STATE ---
     const CONFIG = window.CONFIG || {};
-    const isConfigured = CONFIG.SUPABASE_URL &&
-        CONFIG.SUPABASE_URL.startsWith('http') &&
-        !CONFIG.SUPABASE_URL.includes('__SUPABASE_URL__') &&
-        CONFIG.API_URL &&
-        !CONFIG.API_URL.includes('__API_URL__');
+    // Normalize configuration URLs so they always include a protocol and have no trailing slash.
+    const normalizeBase = (u) => {
+        if (!u) return '';
+        const trimmed = String(u).trim().replace(/\/+$/, '');
+        if (/^https?:\/\//i.test(trimmed)) return trimmed;
+        return 'https://' + trimmed;
+    };
+    const API_BASE = normalizeBase(CONFIG.API_URL || '');
+    const SUPABASE_BASE = normalizeBase(CONFIG.SUPABASE_URL || '');
+
+    // Consider the store configured if supabase and api values are provided and not placeholders.
+    const isConfigured = CONFIG.SUPABASE_URL && !CONFIG.SUPABASE_URL.includes('__SUPABASE_URL__') &&
+        CONFIG.API_URL && !CONFIG.API_URL.includes('__API_URL__');
 
     const state = {
         categories: [],
@@ -205,6 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
         $('cart-body').hidden = true;
         $('cart-footer').hidden = true;
         $('checkout').hidden = false;
+        // Scroll the cart drawer to top so the checkout form is immediately visible
+        // (use a short timeout to allow the drawer open animation to complete).
+        setTimeout(() => { drawer.scrollTop = 0; }, 160);
     });
 
     $('checkout-back').addEventListener('click', () => {
@@ -249,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.querySelector('span').textContent = 'Placing order...';
 
         try {
-            const res = await fetch(CONFIG.API_URL + '/api/orders', {
+            const res = await fetch(API_BASE + '/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -461,10 +472,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const img = (product.image_urls && product.image_urls[0]) || '';
             const outOfStock = !product.available || product.stock <= 0;
+            const sponsoredBadge = product.sponsored ? '<span class="product-badge sponsored">Sponsored</span>' : '';
 
             card.innerHTML = `
                 <div class="product-img-wrap">
                     <img class="product-img" src="${img}" alt="${escapeHtml(product.name)}" loading="lazy">
+                    ${sponsoredBadge}
                     ${outOfStock ? '<span class="product-badge out">Out of stock</span>'
                         : product.stock <= 5 ? `<span class="product-badge low">Only ${product.stock} left</span>` : ''}
                     ${product.video_urls && product.video_urls.length
@@ -535,7 +548,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 11. DATA LOADING ---
     async function fetchFromSupabase(table, params = '') {
-        const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/${table}${params}`, {
+        if (!SUPABASE_BASE) throw new Error('Supabase URL not configured');
+        const res = await fetch(`${SUPABASE_BASE}/rest/v1/${table}${params}`, {
             headers: {
                 apikey: CONFIG.SUPABASE_ANON_KEY,
                 Authorization: `Bearer ${CONFIG.SUPABASE_ANON_KEY}`
