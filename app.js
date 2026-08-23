@@ -24,9 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         categories: [],
         products: [],
         activeCategory: 'all',
-        cart: loadCart(),
-        lightboxProduct: null,
-        lightboxMedia: 'image'
+        cart: loadCart()
     };
 
     const $ = (id) => document.getElementById(id);
@@ -396,11 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
         quickOrderConfig.form?.addEventListener('submit', submitQuickOrder);
     }
 
-    // --- 8. LIGHTBOX (product media viewer) ---
-    const lightbox = $('lightbox');
-    const stage = $('lightbox-stage');
-    const tabs = $('lightbox-tabs');
-    const thumbs = $('lightbox-thumbs');
+    // --- 8. PRODUCT PAGE NAVIGATION ---
 
     function escapeHtml(str) {
         return String(str)
@@ -411,126 +405,13 @@ document.addEventListener('DOMContentLoaded', () => {
             .replace(/'/g, '&#39;');
     }
 
-    function openLightbox(product) {
-        state.lightboxProduct = product;
-        state.lightboxMedia = product.video_urls && product.video_urls.length ? 'video' : 'image';
-        $('lightbox-category').textContent = product.category_name || '';
-        $('lightbox-name').textContent = product.name;
-        $('lightbox-desc').textContent = product.description || '';
-        $('lightbox-price').textContent = formatPrice(product.price);
-        const stockLabel = $('lightbox-stock');
-        if (!product.available || product.stock <= 0) {
-            stockLabel.textContent = 'Out of stock';
-            stockLabel.classList.add('out');
-            $('lightbox-add').disabled = true;
-        } else {
-            stockLabel.textContent = product.stock <= 5 ? `Only ${product.stock} left` : 'In stock';
-            stockLabel.classList.remove('out');
-            $('lightbox-add').disabled = false;
-        }
-
-        renderLightboxTabs();
-        renderLightboxMedia();
-        renderLightboxThumbs();
-
-        lightbox.hidden = false;
-        document.body.style.overflow = 'hidden';
+    function openProductPage(id) {
+        window.location.href = 'product.html?id=' + id;
     }
 
-    function renderLightboxTabs() {
-        tabs.innerHTML = '';
-        const product = state.lightboxProduct;
-        const hasImages = product.image_urls && product.image_urls.length;
-        const hasVideos = product.video_urls && product.video_urls.length;
-
-        if (hasImages) {
-            const btn = document.createElement('button');
-            btn.className = 'lb-tab' + (state.lightboxMedia === 'image' ? ' active' : '');
-            btn.textContent = 'Photos';
-            btn.addEventListener('click', () => { state.lightboxMedia = 'image'; renderLightboxTabs(); renderLightboxMedia(); });
-            tabs.appendChild(btn);
-        }
-        if (hasVideos) {
-            const btn = document.createElement('button');
-            btn.className = 'lb-tab' + (state.lightboxMedia === 'video' ? ' active' : '');
-            btn.textContent = '▶ Video';
-            btn.addEventListener('click', () => { state.lightboxMedia = 'video'; renderLightboxTabs(); renderLightboxMedia(); });
-            tabs.appendChild(btn);
-        }
-    }
-
-    function renderLightboxMedia() {
-        stage.innerHTML = '';
-        const product = state.lightboxProduct;
-        if (state.lightboxMedia === 'video' && product.video_urls && product.video_urls.length) {
-            const video = document.createElement('video');
-            video.controls = true;
-            video.autoplay = true;
-            video.src = product.video_urls[0];
-            video.className = 'lb-video';
-            stage.appendChild(video);
-        } else if (product.image_urls && product.image_urls.length) {
-            const img = document.createElement('img');
-            img.className = 'lb-image';
-            img.src = product.image_urls[0];
-            img.alt = product.name;
-            stage.appendChild(img);
-        } else {
-            const div = document.createElement('div');
-            div.className = 'lb-placeholder';
-            div.textContent = 'No media available';
-            stage.appendChild(div);
-        }
-    }
-
-    function renderLightboxThumbs() {
-        thumbs.innerHTML = '';
-        const product = state.lightboxProduct;
-        const images = product.image_urls || [];
-        if (images.length <= 1) return;
-
-        images.forEach((url, i) => {
-            const thumb = document.createElement('img');
-            thumb.className = 'lb-thumb' + (i === 0 ? ' active' : '');
-            thumb.src = url;
-            thumb.alt = `${product.name} ${i + 1}`;
-            thumb.addEventListener('click', () => {
-                stage.innerHTML = '';
-                const img = document.createElement('img');
-                img.className = 'lb-image';
-                img.src = url;
-                img.alt = product.name;
-                stage.appendChild(img);
-                thumbs.querySelectorAll('.lb-thumb').forEach(t => t.classList.remove('active'));
-                thumb.classList.add('active');
-            });
-            thumbs.appendChild(thumb);
-        });
-    }
-
-    $('lightbox-close').addEventListener('click', () => {
-        lightbox.hidden = true;
-        document.body.style.overflow = '';
-    });
-    $('lightbox-backdrop').addEventListener('click', () => {
-        lightbox.hidden = true;
-        document.body.style.overflow = '';
-    });
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            if (!lightbox.hidden) {
-                lightbox.hidden = true;
-                document.body.style.overflow = '';
-            }
             closeCart();
-        }
-    });
-
-    $('lightbox-add').addEventListener('click', () => {
-        if (state.lightboxProduct) {
-            addToCart(state.lightboxProduct.id);
-            lightbox.hidden = true;
-            document.body.style.overflow = '';
         }
     });
 
@@ -612,7 +493,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            card.querySelector('.product-img-wrap').addEventListener('click', () => openLightbox(product));
+            card.querySelector('.product-img-wrap').addEventListener('click', () => openProductPage(product.id));
+            card.querySelector('.product-name').addEventListener('click', () => openProductPage(product.id));
             card.querySelector('.add-btn').addEventListener('click', (e) => {
                 e.stopPropagation();
                 addToCart(product.id);

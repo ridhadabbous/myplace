@@ -50,13 +50,7 @@
     </script>
 
     <!-- Runtime configuration (injected at deploy time from GitHub secrets) -->
-    <script>
-        window.CONFIG = {
-            SUPABASE_URL: "__SUPABASE_URL__",
-            SUPABASE_ANON_KEY: "__SUPABASE_ANON_KEY__",
-            API_URL: "__API_URL__"
-        };
-    </script>
+    <script src="config.js"></script>
 </head>
 
 <body>
@@ -108,7 +102,6 @@
         </div>
         <!-- Mobile Dropdown Menu -->
         <div class="nav-mobile" id="nav-mobile">
-            <a href="order.html" class="mobile-link">Quick Order</a>
             <a href="#shop" class="mobile-link">Shop</a>
             <a href="#how" class="mobile-link">How to Order</a>
             <a href="#contact" class="mobile-link mobile-cta">Contact Us</a>
@@ -314,31 +307,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Product Lightbox -->
-    <div class="lightbox" id="lightbox" hidden>
-        <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
-        <div class="lightbox-card">
-            <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
-            <div class="lightbox-media">
-                <div class="lightbox-stage" id="lightbox-stage"></div>
-                <div class="lightbox-tabs" id="lightbox-tabs"></div>
-                <div class="lightbox-thumbs" id="lightbox-thumbs"></div>
-            </div>
-            <div class="lightbox-info">
-                <span class="lightbox-category" id="lightbox-category"></span>
-                <h3 class="lightbox-name" id="lightbox-name"></h3>
-                <p class="lightbox-desc" id="lightbox-desc"></p>
-                <div class="lightbox-price-row">
-                    <span class="lightbox-price" id="lightbox-price"></span>
-                    <span class="stock-label" id="lightbox-stock"></span>
-                </div>
-                <button class="btn-primary lightbox-add" id="lightbox-add">
-                    <span>Add to Cart</span>
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- Cart Drawer -->
     <div class="cart-overlay" id="cart-overlay"></div>
