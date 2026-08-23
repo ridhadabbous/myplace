@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const badge = $('cart-badge');
         badge.textContent = count;
         badge.classList.toggle('visible', count > 0);
-        $('mobile-cart-btn').textContent = `Cart (${count})`;
+        $('mobile-cart-btn').textContent = `السلة (${count})`;
         $('cart-total').textContent = formatPrice(cartTotal());
         $('checkout-total').textContent = formatPrice(cartTotal());
         renderCartItems();
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const originalText = submitButton.querySelector('span').textContent;
         submitButton.disabled = true;
         submitButton.style.opacity = '0.7';
-        submitButton.querySelector('span').textContent = 'Placing order...';
+        submitButton.querySelector('span').textContent = 'جارٍ إرسال الطلب...';
 
         try {
             const res = await fetch(API_BASE + '/api/orders', {
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (err) {
             console.error(err);
-            quickOrderConfig.error.textContent = 'Network error. Please check your connection and try again.';
+            quickOrderConfig.error.textContent = 'خطأ في الشبكة. تحقق من اتصالك وحاول مجددا.';
         } finally {
             submitButton.disabled = false;
             submitButton.style.opacity = '1';
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
         checkoutError.textContent = '';
 
         if (!isConfigured) {
-            checkoutError.textContent = 'Store backend is not configured yet. See README.md.';
+            checkoutError.textContent = 'المتجر غير مهيّأ بعد.';
             return;
         }
 
@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const originalText = submitBtn.querySelector('span').textContent;
         submitBtn.disabled = true;
         submitBtn.style.opacity = '0.7';
-        submitBtn.querySelector('span').textContent = 'Placing order...';
+        submitBtn.querySelector('span').textContent = 'جارٍ إرسال الطلب...';
 
         try {
             const res = await fetch(API_BASE + '/api/orders', {
@@ -376,11 +376,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 checkoutForm.hidden = true;
                 $('checkout-success').hidden = false;
             } else {
-                checkoutError.textContent = data.error || 'Could not place your order. Please try again.';
+                checkoutError.textContent = data.error || 'تعذّر إرسال طلبك. حاول مرة أخرى.';
             }
         } catch (err) {
             console.error(err);
-            checkoutError.textContent = 'Network error. Please check your connection and try again.';
+            checkoutError.textContent = 'خطأ في الشبكة. تحقق من اتصالك وحاول مجددا.';
         } finally {
             submitBtn.disabled = false;
             submitBtn.style.opacity = '1';
@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chipsContainer.innerHTML = '';
         const allBtn = document.createElement('button');
         allBtn.className = 'chip' + (state.activeCategory === 'all' ? ' active' : '');
-        allBtn.textContent = 'All';
+        allBtn.textContent = 'الكل';
         allBtn.dataset.category = 'all';
         allBtn.addEventListener('click', () => selectCategory('all'));
         chipsContainer.appendChild(allBtn);
@@ -464,16 +464,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const img = (product.image_urls && product.image_urls[0]) || '';
             const outOfStock = !product.available || product.stock <= 0;
-            const sponsoredBadge = product.sponsored ? '<span class="product-badge sponsored">Sponsored</span>' : '';
+            const sponsoredBadge = product.sponsored ? '<span class="product-badge sponsored">مُموّل</span>' : '';
 
             card.innerHTML = `
                 <div class="product-img-wrap">
                     <img class="product-img" src="${img}" alt="${escapeHtml(product.name)}" loading="lazy">
                     ${sponsoredBadge}
-                    ${outOfStock ? '<span class="product-badge out">Out of stock</span>'
-                        : product.stock <= 5 ? `<span class="product-badge low">Only ${product.stock} left</span>` : ''}
+                    ${outOfStock ? '<span class="product-badge out">غير متوفر</span>'
+                        : product.stock <= 5 ? `<span class="product-badge low">بقي ${product.stock} فقط</span>` : ''}
                     ${product.video_urls && product.video_urls.length
-                        ? '<span class="product-video-tag">▶ Video</span>' : ''}
+                        ? '<span class="product-video-tag">▶ فيديو</span>' : ''}
                 </div>
                 <div class="product-info">
                     <span class="product-category">${escapeHtml(product.category_name || '')}</span>
@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                             </svg>
-                            <span>Add</span>
+                            <span>أضف</span>
                         </button>
                     </div>
                 </div>
@@ -585,7 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.innerHTML = '';
             const msg = document.createElement('div');
             msg.className = 'shop-error';
-            msg.innerHTML = '<h3>Could not load products</h3><p>Please check your Supabase configuration and connection.</p>';
+            msg.innerHTML = '<h3>تعذّر تحميل المنتجات</h3><p>تحقق من إعدادات Supabase والاتصال بالإنترنت.</p>';
             grid.appendChild(msg);
         }
     }

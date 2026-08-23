@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showError(message) {
-        $('pd-error-message').textContent = message || 'Something went wrong while loading this product.';
+        $('pd-error-message').textContent = message || 'حدث خطأ أثناء تحميل هذا المنتج.';
         showView('error');
     }
 
@@ -117,14 +117,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (hasImages) {
             const btn = document.createElement('button');
             btn.className = 'lb-tab' + (state.media === 'image' ? ' active' : '');
-            btn.textContent = 'Photos';
+            btn.textContent = 'صور';
             btn.addEventListener('click', () => { state.media = 'image'; renderMedia(); renderMediaTabs(); });
             tabs.appendChild(btn);
         }
         if (hasVideos) {
             const btn = document.createElement('button');
             btn.className = 'lb-tab' + (state.media === 'video' ? ' active' : '');
-            btn.textContent = '▶ Video';
+            btn.textContent = '▶ فيديو';
             btn.addEventListener('click', () => { state.media = 'video'; renderMedia(); renderMediaTabs(); });
             tabs.appendChild(btn);
         }
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             stage.innerHTML = '';
             const div = document.createElement('div');
             div.className = 'lb-placeholder';
-            div.textContent = 'No media available';
+            div.textContent = 'لا توجد وسائط متوفرة';
             stage.appendChild(div);
         }
     }
@@ -198,11 +198,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const outOfStock = !p.available || Number(p.stock) <= 0;
 
         if (outOfStock) {
-            stockLabel.textContent = 'Out of stock';
+            stockLabel.textContent = 'غير متوفر';
             stockLabel.classList.add('out');
             orderCard.hidden = true;
         } else {
-            stockLabel.textContent = Number(p.stock) <= 5 ? `Only ${p.stock} left` : 'In stock';
+            stockLabel.textContent = Number(p.stock) <= 5 ? `بقي ${p.stock} فقط` : 'متوفر';
             stockLabel.classList.remove('out');
         }
     }
@@ -210,10 +210,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateMetaTags(p) {
         const price = formatPrice(p.price);
         const img = (p.image_urls && p.image_urls[0]) || 'https://myplace.tn/og-image.png';
-        const desc = p.description || `Order ${p.name} online at MyPlace. ${price} — cash on delivery anywhere in Tunisia.`;
+        const desc = p.description || `اطلب ${p.name} أونلاين من MyPlace بسعر ${price} — الدفع عند الاستلام في كل ولايات تونس.`;
         const url = window.location.origin + '/product.html?id=' + p.id;
 
-        document.title = `${p.name} — ${price} | MyPlace Tunisia`;
+        document.title = `${p.name} — ${price} | MyPlace تونس`;
         const setMeta = (selector, attr, value) => {
             const el = document.querySelector(selector);
             if (el) el.setAttribute(attr, value);
@@ -273,6 +273,69 @@ document.addEventListener('DOMContentLoaded', () => {
         updateMetaTags(p);
 
         showView('product');
+        guidedPurchaseFlow();
+    }
+
+    // --- 4b. MOBILE GUIDED PURCHASE FLOW ---
+    // On phones: the image reveals with a slow cinematic zoom (CSS), then the
+    // page glides down to the order form. Any touch/swipe/key cancels it.
+    const mobileMQ = window.matchMedia('(max-width: 900px)');
+    const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function guidedPurchaseFlow() {
+        if (!mobileMQ.matches || !motionOK) return;
+
+        const orderCard = $('pd-order-card');
+        if (!orderCard || orderCard.hidden) return;
+
+        let cancelled = false;
+        const cancel = () => { cancelled = true; };
+        const events = ['touchstart', 'wheel', 'keydown'];
+        const watch = () => events.forEach(ev => window.addEventListener(ev, cancel, { passive: true }));
+        const unwatch = () => events.forEach(ev => window.removeEventListener(ev, cancel));
+
+        // Hold phase: let the user take in the image first; any interaction skips the flow.
+        watch();
+        setTimeout(() => {
+            unwatch();
+            if (cancelled) return;
+
+            // Glide phase: interactions abort the scroll mid-way.
+            watch();
+            glideTo(orderCard, () => cancelled).then(unwatch);
+        }, 2200);
+    }
+
+    function glideTo(target, isCancelled) {
+        return new Promise((resolve) => {
+            const navbar = document.querySelector('.navbar');
+            const navH = navbar ? navbar.offsetHeight + 10 : 80;
+            const start = window.scrollY;
+            const goal = target.getBoundingClientRect().top + start - navH;
+            const dist = goal - start;
+            if (Math.abs(dist) < 40) {
+                resolve();
+                return;
+            }
+
+            // Native smooth scrolling is too abrupt for the "slow motion" feel,
+            // so animate manually with an ease-in-out curve (~1.3s).
+            const duration = 1300;
+            const t0 = performance.now();
+            const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+            const step = (now) => {
+                if (isCancelled && isCancelled()) {
+                    resolve();
+                    return;
+                }
+                const progress = Math.min(1, (now - t0) / duration);
+                window.scrollTo(0, start + dist * ease(progress));
+                if (progress < 1) requestAnimationFrame(step);
+                else resolve();
+            };
+            requestAnimationFrame(step);
+        });
     }
 
     // --- 5. QTY STEPPER ---
@@ -299,19 +362,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Client-side validation mirroring the Worker's rules for instant feedback.
         if (name.length < 2 || name.length > 120) {
-            formError.textContent = 'Please enter your full name.';
+            formError.textContent = 'يرجى إدخال اسمك الكامل.';
             return;
         }
         if (!/^[+0-9 ()-]{6,20}$/.test(phone)) {
-            formError.textContent = 'Please enter a valid phone number.';
+            formError.textContent = 'يرجى إدخال رقم هاتف صحيح.';
             return;
         }
         if (city.length < 2 || city.length > 120) {
-            formError.textContent = 'Please select your city.';
+            formError.textContent = 'يرجى اختيار مدينتك.';
             return;
         }
         if (address.length < 5 || address.length > 500) {
-            formError.textContent = 'Please enter your delivery address.';
+            formError.textContent = 'يرجى إدخال عنوان التوصيل.';
             return;
         }
 
@@ -328,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const originalText = submitBtn.querySelector('span').textContent;
         submitBtn.disabled = true;
         submitBtn.style.opacity = '0.7';
-        submitBtn.querySelector('span').textContent = 'Placing order...';
+        submitBtn.querySelector('span').textContent = 'جارٍ إرسال الطلب...';
 
         try {
             const res = await fetch(API_BASE + '/api/orders', {
@@ -345,11 +408,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 form.hidden = true;
                 $('pd-success').hidden = false;
             } else {
-                formError.textContent = data.error || 'Could not place your order. Please try again.';
+                formError.textContent = data.error || 'تعذّر إرسال طلبك. حاول مرة أخرى.';
             }
         } catch (err) {
             console.error(err);
-            formError.textContent = 'Network error. Please check your connection and try again.';
+            formError.textContent = 'خطأ في الشبكة. تحقق من اتصالك وحاول مجددا.';
         } finally {
             submitBtn.disabled = false;
             submitBtn.style.opacity = '1';
@@ -364,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 7. LOAD ---
     async function load() {
         if (!isConfigured) {
-            showError('Store backend is not configured yet.');
+            showError('المتجر غير مهيّأ بعد.');
             return;
         }
         if (!Number.isInteger(productId) || productId <= 0) {

@@ -1,30 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product | MyPlace Online Store Tunisia</title>
-    <meta name="description" content="Order this product online at MyPlace and pay cash on delivery anywhere in Tunisia." />
+    <title>MyPlace | متجر إلكتروني في تونس</title>
+    <meta name="description" content="اطلب هذا المنتج أونلاين من MyPlace وادفع نقدا عند الاستلام في كل تونس." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://myplace.tn/product.html" id="pd-canonical" />
 
-    <meta property="og:title" content="MyPlace Online Store in Tunisia" />
-    <meta property="og:description" content="Order online and pay cash on delivery anywhere in Tunisia." />
+    <meta property="og:title" content="MyPlace — متجر إلكتروني في تونس" id="pd-og-title" />
+    <meta property="og:description" content="اطلب أونلاين وادفع نقدا عند الاستلام في كل تونس." id="pd-og-desc" />
     <meta property="og:type" content="product" />
     <meta property="og:url" content="https://myplace.tn/" id="pd-og-url" />
     <meta property="og:image" content="https://myplace.tn/og-image.png" id="pd-og-image" />
     <meta property="og:site_name" content="MyPlace" />
+    <meta property="og:locale" content="ar_TN" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MyPlace Online Store in Tunisia" id="pd-tw-title" />
-    <meta name="twitter:description" content="Order online and pay cash on delivery anywhere in Tunisia." id="pd-tw-desc" />
+    <meta name="twitter:title" content="MyPlace — متجر إلكتروني في تونس" id="pd-tw-title" />
+    <meta name="twitter:description" content="اطلب أونلاين وادفع نقدا عند الاستلام في كل تونس." id="pd-tw-desc" />
     <meta name="twitter:image" content="https://myplace.tn/og-image.png" id="pd-tw-image" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap"
         rel="stylesheet">
 
     <!-- Stylesheets -->
@@ -58,12 +59,12 @@
             </a>
 
             <div class="nav-links" id="nav-links">
-                <a href="/#shop" class="nav-link">Shop</a>
-                <a href="/#how" class="nav-link">How to Order</a>
-                <a href="/#contact" class="nav-link nav-cta">Contact Us</a>
+                <a href="/#shop" class="nav-link">المتجر</a>
+                <a href="/#how" class="nav-link">طريقة الطلب</a>
+                <a href="/#contact" class="nav-link nav-cta">اتصل بنا</a>
             </div>
 
-            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="فتح القائمة" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -71,9 +72,9 @@
         </div>
         <!-- Mobile Dropdown Menu -->
         <div class="nav-mobile" id="nav-mobile">
-            <a href="/#shop" class="mobile-link">Shop</a>
-            <a href="/#how" class="mobile-link">How to Order</a>
-            <a href="/#contact" class="mobile-link mobile-cta">Contact Us</a>
+            <a href="/#shop" class="mobile-link">المتجر</a>
+            <a href="/#how" class="mobile-link">طريقة الطلب</a>
+            <a href="/#contact" class="mobile-link mobile-cta">اتصل بنا</a>
         </div>
     </nav>
 
@@ -88,18 +89,18 @@
             </div>
 
             <div class="pd-state pd-message" id="pd-notfound" hidden>
-                <h3>Product not found</h3>
-                <p>This product may have been removed or the link is incorrect.</p>
+                <h3>المنتج غير موجود</h3>
+                <p>ربما تم حذف هذا المنتج أو أن الرابط غير صحيح.</p>
                 <a href="/#shop" class="btn-primary">
-                    <span>Browse Products</span>
+                    <span>تصفّح المنتجات</span>
                 </a>
             </div>
 
             <div class="pd-state pd-message" id="pd-error-state" hidden>
-                <h3>Could not load this product</h3>
-                <p id="pd-error-message">Something went wrong while loading this product.</p>
+                <h3>تعذّر تحميل هذا المنتج</h3>
+                <p id="pd-error-message">حدث خطأ أثناء تحميل هذا المنتج.</p>
                 <button class="btn-primary" id="pd-retry">
-                    <span>Try Again</span>
+                    <span>حاول مجددا</span>
                 </button>
             </div>
 
@@ -116,73 +117,72 @@
                         <h1 class="lightbox-name" id="pd-name"></h1>
                         <p class="lightbox-desc" id="pd-desc"></p>
                         <div class="lightbox-price-row">
-                            <span class="lightbox-price" id="pd-price"></span>
+                            <span class="lightbox-price" id="pd-price" dir="ltr"></span>
                             <span class="stock-label" id="pd-stock"></span>
                         </div>
 
                         <div class="cart-qty pd-qty" id="pd-qty-row">
-                            <button class="qty-btn" id="pd-qty-minus" aria-label="Decrease quantity">−</button>
+                            <button class="qty-btn" id="pd-qty-minus" aria-label="إنقاص الكمية">−</button>
                             <span class="qty-val" id="pd-qty">1</span>
-                            <button class="qty-btn" id="pd-qty-plus" aria-label="Increase quantity">+</button>
+                            <button class="qty-btn" id="pd-qty-plus" aria-label="زيادة الكمية">+</button>
                         </div>
 
                         <!-- Direct Order Form -->
                         <div class="pd-order" id="pd-order-card">
                             <form class="checkout-form" id="pd-order-form">
                                 <div class="form-group">
-                                    <label for="p-name" class="form-label">Full Name</label>
+                                    <label for="p-name" class="form-label">الاسم الكامل</label>
                                     <input type="text" id="p-name" name="customer_name" class="form-input"
-                                        placeholder="e.g. Ahmed Ben Ali" required>
+                                        placeholder="مثال: أحمد بن علي" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="p-phone" class="form-label">Phone Number</label>
-                                    <input type="tel" id="p-phone" name="phone" class="form-input"
-                                        placeholder="e.g. +216 20 123 456" required>
+                                    <label for="p-phone" class="form-label">رقم الهاتف</label>
+                                    <input type="tel" id="p-phone" name="phone" class="form-input" dir="ltr"
+                                        placeholder="+216 20 123 456" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="p-city" class="form-label">City</label>
+                                    <label for="p-city" class="form-label">المدينة</label>
                                     <select id="p-city" name="city" class="form-input form-select" required>
-                                        <option value="">Select your city</option>
-                                        <option value="Tunis">Tunis</option>
-                                        <option value="Ariana">Ariana</option>
-                                        <option value="Ben Arous">Ben Arous</option>
-                                        <option value="Manouba">Manouba</option>
-                                        <option value="Nabeul">Nabeul</option>
-                                        <option value="Bizerte">Bizerte</option>
-                                        <option value="Zaghouan">Zaghouan</option>
-                                        <option value="Beja">Beja</option>
-                                        <option value="Jendouba">Jendouba</option>
-                                        <option value="Kef">Kef</option>
-                                        <option value="Siliana">Siliana</option>
-                                        <option value="Sousse">Sousse</option>
-                                        <option value="Monastir">Monastir</option>
-                                        <option value="Mahdia">Mahdia</option>
-                                        <option value="Kairouan">Kairouan</option>
-                                        <option value="Sfax">Sfax</option>
-                                        <option value="Gabes">Gabes</option>
-                                        <option value="Medenine">Medenine</option>
-                                        <option value="Tataouine">Tataouine</option>
-                                        <option value="Kebili">Kebili</option>
-                                        <option value="Tozeur">Tozeur</option>
-                                        <option value="Gafsa">Gafsa</option>
-                                        <option value="Kasserine">Kasserine</option>
-                                        <option value="Sidi Bouzid">Sidi Bouzid</option>
+                                        <option value="">اختر مدينتك</option>
+                                        <option value="تونس">تونس</option>
+                                        <option value="أريانة">أريانة</option>
+                                        <option value="بن عروس">بن عروس</option>
+                                        <option value="منوبة">منوبة</option>
+                                        <option value="نابل">نابل</option>
+                                        <option value="بنزرت">بنزرت</option>
+                                        <option value="زغوان">زغوان</option>
+                                        <option value="باجة">باجة</option>
+                                        <option value="جندوبة">جندوبة</option>
+                                        <option value="الكاف">الكاف</option>
+                                        <option value="سليانة">سليانة</option>
+                                        <option value="سوسة">سوسة</option>
+                                        <option value="المنستير">المنستير</option>
+                                        <option value="المهدية">المهدية</option>
+                                        <option value="القيروان">القيروان</option>
+                                        <option value="صفاقس">صفاقس</option>
+                                        <option value="قابس">قابس</option>
+                                        <option value="مدنين">مدنين</option>
+                                        <option value="تطاوين">تطاوين</option>
+                                        <option value="قبلي">قبلي</option>
+                                        <option value="توزر">توزر</option>
+                                        <option value="قفصة">قفصة</option>
+                                        <option value="القصرين">القصرين</option>
+                                        <option value="سيدي بوزيد">سيدي بوزيد</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="p-address" class="form-label">Delivery Address</label>
+                                    <label for="p-address" class="form-label">عنوان التوصيل</label>
                                     <textarea id="p-address" name="address" rows="2" class="form-input form-textarea"
-                                        placeholder="Street, building, neighborhood or delivery notes..." required></textarea>
+                                        placeholder="الشارع، العمارة، الحي أو أي ملاحظات للتوصيل..." required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="p-notes" class="form-label">Order Notes (optional)</label>
+                                    <label for="p-notes" class="form-label">ملاحظات (اختياري)</label>
                                     <textarea id="p-notes" name="notes" rows="2" class="form-input form-textarea"
-                                        placeholder="Anything we should know?"></textarea>
+                                        placeholder="هل هناك ما يجب أن نعرفه؟"></textarea>
                                 </div>
-                                <p class="checkout-total-line">Total: <strong id="pd-total">0 DT</strong> — cash on
-                                    delivery</p>
+                                <p class="checkout-total-line">الإجمالي: <strong id="pd-total" dir="ltr">0 DT</strong> — الدفع عند الاستلام</p>
                                 <button type="submit" class="form-submit-btn" id="pd-submit">
-                                    <span>Order Now — Pay on Delivery</span>
+                                    <span>اطلب الآن — الدفع عند الاستلام</span>
                                 </button>
                                 <p class="checkout-error" id="pd-form-error"></p>
                             </form>
@@ -194,18 +194,18 @@
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg>
                                 </div>
-                                <h3>Order Received!</h3>
-                                <p>Thank you for shopping with MyPlace. Our team will call you shortly to confirm your
-                                    order. Please keep your phone nearby.</p>
+                                <h3>تم استلام طلبك!</h3>
+                                <p>شكرا لتسوقك مع MyPlace. سيتصل بك فريقنا قريبا لتأكيد طلبك.
+                                    يُرجى إبقاء هاتفك قريبا.</p>
                                 <p class="pd-ref" id="pd-order-ref"></p>
-                                <button class="btn-success-reset" id="pd-done">Continue Shopping</button>
+                                <button class="btn-success-reset" id="pd-done">مواصلة التسوق</button>
                             </div>
                         </div>
 
                         <ul class="pd-perks">
-                            <li>Cash on delivery — pay when you receive</li>
-                            <li>Fast delivery all over Tunisia</li>
-                            <li>We call you to confirm every order</li>
+                            <li>الدفع عند الاستلام — ادفع عندما يصلك الطلب</li>
+                            <li>توصيل سريع إلى كل ولايات الجمهورية</li>
+                            <li>نتصل بك لتأكيد كل طلب</li>
                         </ul>
                     </div>
                 </div>
@@ -236,28 +236,28 @@
                         </svg>
                         <span class="logo-text">MyPlace</span>
                     </a>
-                    <p class="footer-tagline">Your online store for electronics and tech essentials.
-                        Order online, pay cash on delivery, anywhere in Tunisia.</p>
+                    <p class="footer-tagline">متجرك الإلكتروني للإلكترونيات والمنتجات التقنية.
+                        اطلب أونلاين وادفع عند الاستلام، في أي مكان في تونس.</p>
                 </div>
                 <div class="footer-nav">
                     <div class="footer-nav-col">
-                        <h4>Shop</h4>
-                        <a href="/#shop">All Products</a>
-                        <a href="/#how">How to Order</a>
+                        <h4>المتجر</h4>
+                        <a href="/#shop">جميع المنتجات</a>
+                        <a href="/#how">طريقة الطلب</a>
                     </div>
                     <div class="footer-nav-col">
-                        <h4>Connect</h4>
-                        <a href="mailto:hello@myplace.tn">hello@myplace.tn</a>
-                        <a href="tel:+21626679033">+216 26 679 033</a>
+                        <h4>تواصل معنا</h4>
+                        <a href="mailto:hello@myplace.tn" dir="ltr">hello@myplace.tn</a>
+                        <a href="tel:+21626679033" dir="ltr">+216 26 679 033</a>
                     </div>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2026 MyPlace.tn. All rights reserved.</p>
+                <p>&copy; 2026 MyPlace.tn — جميع الحقوق محفوظة.</p>
                 <div class="footer-bottom-links">
-                    <span>Cash on Delivery</span>
-                    <span>Tunisia</span>
+                    <span>الدفع عند الاستلام</span>
+                    <span>تونس</span>
                 </div>
             </div>
         </div>
