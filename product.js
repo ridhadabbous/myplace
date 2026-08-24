@@ -1,7 +1,7 @@
 /* ==========================================================================
    MYPLACE.TN PRODUCT PAGE SCRIPTS
-   Loads a single product by ?id= from Supabase and handles direct orders
-   via the Cloudflare Worker (/api/orders).
+   Loads a single product by ?id= via the Cloudflare Worker (/api/products/:id)
+   and handles direct orders via the Worker (/api/orders).
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,10 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return 'https://' + trimmed;
     };
     const API_BASE = normalizeBase(CONFIG.API_URL || '');
-    const SUPABASE_BASE = normalizeBase(CONFIG.SUPABASE_URL || '');
 
-    const isConfigured = CONFIG.SUPABASE_URL && !CONFIG.SUPABASE_URL.includes('__SUPABASE_URL__') &&
-        CONFIG.API_URL && !CONFIG.API_URL.includes('__API_URL__');
+    const isConfigured = CONFIG.API_URL && !CONFIG.API_URL.includes('__API_URL__');
 
     const state = {
         product: null,
@@ -45,17 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function fetchProduct() {
-        if (!SUPABASE_BASE) throw new Error('Supabase URL not configured');
-        const params = '?select=id,category_id,name,description,price,image_urls,video_urls,stock,available,categories(name)&id=eq.' +
-            encodeURIComponent(productId) + '&limit=1';
-        const res = await fetch(`${SUPABASE_BASE}/rest/v1/products${params}`, {
-            headers: {
-                apikey: CONFIG.SUPABASE_ANON_KEY,
-                Authorization: `Bearer ${CONFIG.SUPABASE_ANON_KEY}`
-            }
-        });
+        if (!API_BASE) throw new Error('API URL not configured');
+        if (!Number.isInteger(productId) || productId <= 0) return [];
+        const res = await fetch(`${API_BASE}/api/products/${productId}`);
+        if (res.status === 404) return [];
         if (!res.ok) throw new Error(`Failed to load product: ${res.status}`);
-        return res.json();
+        const row = await res.json();
+        return [row];
     }
 
     // --- 2. NAV (hamburger + scroll state) ---

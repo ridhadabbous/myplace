@@ -14,11 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return 'https://' + trimmed;
     };
     const API_BASE = normalizeBase(CONFIG.API_URL || '');
-    const SUPABASE_BASE = normalizeBase(CONFIG.SUPABASE_URL || '');
 
-    // Consider the store configured if supabase and api values are provided and not placeholders.
-    const isConfigured = CONFIG.SUPABASE_URL && !CONFIG.SUPABASE_URL.includes('__SUPABASE_URL__') &&
-        CONFIG.API_URL && !CONFIG.API_URL.includes('__API_URL__');
+    // Consider the store configured if the api value is provided and not a placeholder.
+    const isConfigured = CONFIG.API_URL && !CONFIG.API_URL.includes('__API_URL__');
 
     const state = {
         categories: [],
@@ -540,15 +538,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 11. DATA LOADING ---
-    async function fetchFromSupabase(table, params = '') {
-        if (!SUPABASE_BASE) throw new Error('Supabase URL not configured');
-        const res = await fetch(`${SUPABASE_BASE}/rest/v1/${table}${params}`, {
-            headers: {
-                apikey: CONFIG.SUPABASE_ANON_KEY,
-                Authorization: `Bearer ${CONFIG.SUPABASE_ANON_KEY}`
-            }
-        });
-        if (!res.ok) throw new Error(`Failed to load ${table}: ${res.status}`);
+    async function loadCatalog() {
+        if (!API_BASE) throw new Error('API URL not configured');
+        const res = await fetch(`${API_BASE}/api/catalog`);
+        if (!res.ok) throw new Error(`Failed to load catalog: ${res.status}`);
         return res.json();
     }
 
@@ -560,11 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const [categories, products] = await Promise.all([
-                fetchFromSupabase('categories', '?select=*&order=sort_order.asc'),
-                fetchFromSupabase('products',
-                    '?select=id,category_id,name,description,price,image_urls,video_urls,stock,available,categories(name)&order=category_id.asc')
-            ]);
+            const { categories, products } = await loadCatalog();
 
             const catNames = {};
             categories.forEach(cat => { catNames[cat.id] = cat.name; });
@@ -585,7 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.innerHTML = '';
             const msg = document.createElement('div');
             msg.className = 'shop-error';
-            msg.innerHTML = '<h3>تعذّر تحميل المنتجات</h3><p>تحقق من إعدادات Supabase والاتصال بالإنترنت.</p>';
+            msg.innerHTML = '<h3>تعذّر تحميل المنتجات</h3><p>تحقق من الاتصال بالإنترنت وحاول مجددا.</p>';
             grid.appendChild(msg);
         }
     }
